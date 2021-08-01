@@ -1,4 +1,5 @@
 mod thirteen_strings;
+use std::fmt::{Debug, Formatter};
 use std::num::ParseFloatError;
 use std::str::FromStr;
 use thirteen_strings::THIRTEEN_STRINGS;
@@ -85,23 +86,7 @@ impl_always_false!(bool);
 impl_always_false!(char);
 impl_always_false!(());
 
-impl<F, R> IsThirteen for F
-where
-    F: Fn() -> R,
-    R: IsThirteen,
-{
-    fn is_thirteen(&self) -> bool {
-        self().is_thirteen()
-    }
-}
-
-pub struct Roughly<T>(T);
-
-impl<T> From<T> for Roughly<T> {
-    fn from(from: T) -> Self {
-        Self(from)
-    }
-}
+pub struct Roughly<T>(pub T);
 
 impl FromStr for Roughly<f64> {
     type Err = ParseFloatError;
@@ -111,6 +96,21 @@ impl FromStr for Roughly<f64> {
     }
 }
 
+macro_rules! impl_debug {
+    ($type:ty) => {
+        impl<T> Debug for $type
+        where
+            T: Debug,
+        {
+            fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+                write!(f, "{:?}", self)
+            }
+        }
+    };
+}
+
+impl_debug!(Roughly<T>);
+
 impl<T> IsThirteen for Roughly<T>
 where
     T: Into<f64> + Clone,
@@ -118,6 +118,20 @@ where
     fn is_thirteen(&self) -> bool {
         let f: f64 = self.0.clone().into();
         (12.5..13.5).contains(&f)
+    }
+}
+
+pub struct ReturnedValue<T>(pub T);
+
+impl_debug!(ReturnedValue<T>);
+
+impl<F, R> IsThirteen for ReturnedValue<F>
+where
+    F: Fn() -> R,
+    R: IsThirteen,
+{
+    fn is_thirteen(&self) -> bool {
+        self.0().is_thirteen()
     }
 }
 
@@ -319,7 +333,7 @@ mod tests {
     #[case(1 + 12, true)] // 184
     #[case((2 * 8 + 11 - 1) / 2, true)] // 185
     #[case((10 - 1 + 32) / 4 * 3, false)] // 186
-    #[case(Roughly::from(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 187
+    #[case(Roughly(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 187
     #[case(13, true)] // 188
     #[case(14, false)] // 189
     #[case(u8::from_str_radix("1101", 2).unwrap(), true)] // 190
@@ -329,7 +343,7 @@ mod tests {
     #[case(u8::from_str_radix("d", 16).unwrap(), true)] // 194
     #[case(u8::from_str_radix("D", 16).unwrap(), true)] // 195
     #[case(u8::from_str_radix("A", 16).unwrap(), false)] // 196
-    #[case(|| 13, true)] // 197
+    #[case(ReturnedValue(|| 13), true)] // 197
     #[case("|||||||||||||", true)] // 198
     #[case("/////////////", true)] // 199
     #[case("🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱", true)] // 200
@@ -337,7 +351,7 @@ mod tests {
     #[case("bbbbbbbbbbb", false)] // 202
     #[case("||h||||||||||", false)] // 203
     #[case("///i/////////", false)] // 204
-    // Added test cases
+    // Additional test cases
     #[case(0, false)]
     #[case(13.0, true)]
     #[case("", false)]
@@ -346,11 +360,11 @@ mod tests {
     #[case('1', false)]
     #[case((), false)]
     #[case("1111111111111", true)]
-    #[case(Roughly::from(0), false)]
-    #[case(Roughly::from(12.5), true)]
-    #[case(Roughly::from(13), true)]
-    #[case(Roughly::from(13.4), true)]
-    #[case(Roughly::from(13.5), false)]
+    #[case(Roughly(0), false)]
+    #[case(Roughly(12.5), true)]
+    #[case(Roughly(13), true)]
+    #[case(Roughly(13.4), true)]
+    #[case(Roughly(13.5), false)]
     #[case(Roughly::from_str("12.5").unwrap(), true)]
     fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
     where
