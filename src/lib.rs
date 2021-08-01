@@ -86,15 +86,33 @@ impl_always_false!(bool);
 impl_always_false!(char);
 impl_always_false!(());
 
-pub struct Roughly<T>(pub T);
+#[derive(Debug)]
+pub struct Roughly(f64);
 
-impl FromStr for Roughly<f64> {
+impl<T> From<T> for Roughly
+where
+    T: Into<f64>,
+{
+    fn from(v: T) -> Self {
+        Self(v.into())
+    }
+}
+
+impl FromStr for Roughly {
     type Err = ParseFloatError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Ok(Roughly::<f64>(s.parse()?))
+        Ok(Roughly(s.parse()?))
     }
 }
+
+impl IsThirteen for Roughly {
+    fn is_thirteen(&self) -> bool {
+        (12.5..13.5).contains(&self.0)
+    }
+}
+
+pub struct ReturnedValue<T>(pub T);
 
 macro_rules! impl_debug {
     ($type:ty) => {
@@ -108,20 +126,6 @@ macro_rules! impl_debug {
         }
     };
 }
-
-impl_debug!(Roughly<T>);
-
-impl<T> IsThirteen for Roughly<T>
-where
-    T: Into<f64> + Clone,
-{
-    fn is_thirteen(&self) -> bool {
-        let f: f64 = self.0.clone().into();
-        (12.5..13.5).contains(&f)
-    }
-}
-
-pub struct ReturnedValue<T>(pub T);
 
 impl_debug!(ReturnedValue<T>);
 
@@ -333,7 +337,7 @@ mod tests {
     #[case(1 + 12, true)] // 184
     #[case((2 * 8 + 11 - 1) / 2, true)] // 185
     #[case((10 - 1 + 32) / 4 * 3, false)] // 186
-    #[case(Roughly(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 187
+    #[case(Roughly::from(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 187
     #[case(13, true)] // 188
     #[case(14, false)] // 189
     #[case(u8::from_str_radix("1101", 2).unwrap(), true)] // 190
@@ -360,11 +364,11 @@ mod tests {
     #[case('1', false)]
     #[case((), false)]
     #[case("1111111111111", true)]
-    #[case(Roughly(0), false)]
-    #[case(Roughly(12.5), true)]
-    #[case(Roughly(13), true)]
-    #[case(Roughly(13.4), true)]
-    #[case(Roughly(13.5), false)]
+    #[case(Roughly::from(0), false)]
+    #[case(Roughly::from(12.5), true)]
+    #[case(Roughly::from(13), true)]
+    #[case(Roughly::from(13.4), true)]
+    #[case(Roughly::from(13.5), false)]
     #[case(Roughly::from_str("12.5").unwrap(), true)]
     fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
     where
