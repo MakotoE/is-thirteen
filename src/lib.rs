@@ -1,3 +1,6 @@
+mod thirteen_strings;
+use thirteen_strings::THIRTEEN_STRINGS;
+
 pub trait IsThirteen {
     fn is_thirteen(&self) -> bool;
 }
@@ -41,6 +44,9 @@ impl_for_float!(f32);
 impl IsThirteen for &str {
     fn is_thirteen(&self) -> bool {
         *self == "13"
+            || (self.len() == 13 && self.bytes().all(|b| matches!(b, b'I' | b'l' | b'1')))
+            || THIRTEEN_STRINGS.contains(self)
+            || THIRTEEN_STRINGS.contains(&self.to_lowercase().as_str())
     }
 }
 
@@ -71,16 +77,23 @@ mod tests {
 
     #[rstest]
     // Tests from the is-thirteen suite
+    // https://github.com/jezen/is-thirteen/blob/3e1cc843db584f7c8a9a13d8bc74a5e4bd1fa82f/test.js
     #[case(13, true)] // 1
     #[case("13", true)] // 2
-    #[case(0, false)] // 3
-    #[case(13.0, true)] // 4
-    // My test cases
-    #[case("", false)] // 5
-    #[case("13".to_string(), true)] // 6
-    #[case(true, false)] // 7
-    #[case('1', false)] // 8
-    #[case((), false)] // 9
+    #[case("۱۳", true)] // 3
+    #[case("XIII", true)] // 4
+    #[case("xiii", true)] // 5
+    #[case("IIIIIIIIIIIII", true)] // 6
+    #[case("IlIlIlIlIlIlI", true)] // 7
+    // Added test cases
+    #[case(0, false)]
+    #[case(13.0, true)]
+    #[case("", false)]
+    #[case("13".to_string(), true)]
+    #[case(true, false)]
+    #[case('1', false)]
+    #[case((), false)]
+    #[case("1111111111111", true)] // 6
     fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
     where
         T: IsThirteen,
