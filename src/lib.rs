@@ -50,18 +50,37 @@ impl IsThirteen for String {
     }
 }
 
+macro_rules! impl_always_false {
+    ($type:ty) => {
+        impl IsThirteen for $type {
+            fn is_thirteen(&self) -> bool {
+                false
+            }
+        }
+    };
+}
+
+impl_always_false!(bool);
+impl_always_false!(char);
+impl_always_false!(());
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use rstest::rstest;
 
     #[rstest]
-    #[case(0, false)]
-    #[case(13, true)]
-    #[case(13.0, true)]
-    #[case("", false)]
-    #[case("13", true)]
-    #[case("13".to_string(), true)]
+    // Tests from the is-thirteen suite
+    #[case(13, true)] // 1
+    #[case("13", true)] // 2
+    #[case(0, false)] // 3
+    #[case(13.0, true)] // 4
+    // My test cases
+    #[case("", false)] // 5
+    #[case("13".to_string(), true)] // 6
+    #[case(true, false)] // 7
+    #[case('1', false)] // 8
+    #[case((), false)] // 9
     fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
     where
         T: IsThirteen,
