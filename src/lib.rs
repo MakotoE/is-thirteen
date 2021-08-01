@@ -49,7 +49,7 @@ impl IsThirteen for &str {
             || (self.len() == 13 && self.bytes().all(|b| matches!(b, b'I' | b'l' | b'1')))
             || is_thirteen_equal_chars(self)
             || THIRTEEN_STRINGS.contains(self)
-            || THIRTEEN_STRINGS.contains(&self.to_lowercase().as_str())
+            || THIRTEEN_STRINGS.contains(self.to_lowercase().as_str())
     }
 }
 
@@ -117,7 +117,7 @@ where
 {
     fn is_thirteen(&self) -> bool {
         let f: f64 = self.0.clone().into();
-        12.5 <= f && f < 13.5
+        (12.5..13.5).contains(&f)
     }
 }
 
