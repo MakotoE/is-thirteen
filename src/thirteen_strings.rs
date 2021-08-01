@@ -1,4 +1,6 @@
-pub const THIRTEEN_STRINGS: [&'static str; 279] = [
+use phf::{phf_set, Set};
+
+pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "xiii", // Roman numeral 13
     "1.3", // Basically 13, see proof in #420
     "1️⃣3️⃣", // emoji sequence of 1 and 3
@@ -21,7 +23,7 @@ pub const THIRTEEN_STRINGS: [&'static str; 279] = [
     "Washington Luís", // Brazil's thirteenth president
     "Millard Fillmore", // Thirteenth President of the United States
     "Louis XIII", // Thirteenth king of France
-    "https://s3.amazonaws.com/rapgenius/calle13.jpg", // Calle 13, famous latin american band
+    // "https://s3.amazonaws.com/rapgenius/calle13.jpg", // Calle 13, famous latin american band (duplicate)
 
 
     // ALL HAIL ZALGO
@@ -90,7 +92,7 @@ pub const THIRTEEN_STRINGS: [&'static str; 279] = [
     // Morse
     ".---- ...--",
     "- .... .. .-. - . . -.",
-    "- .... .. .-. - . . -.",
+    // "- .... .. .-. - . . -.", (duplicate)
 
     // Caesar shift
     "wkluwhhq",
@@ -180,7 +182,7 @@ pub const THIRTEEN_STRINGS: [&'static str; 279] = [
     "threttandunum",
     "threttandanna",// end of Icelandic
 
-    "threttandum", // end of Icelandic
+    // "threttandum", // end of Icelandic (duplicate)
     "třináct", // Czech
 
     "kolmteist", // Estonian
@@ -220,7 +222,7 @@ pub const THIRTEEN_STRINGS: [&'static str; 279] = [
     "പതിമൂന്ന്", //Malayalam
     "तेरा", // Marathi (१३)
     "арван", // Mongolian
-    ".---- ...--", // Morse code
+    // ".---- ...--", // Morse code (duplicate)
     "matlactlihuan yei", // Classical Nahuatl (Aztec)
     "mahtlactli omei", // Nahuatl variant
     "mahtlactli ihuan yei", // Nahuatl variant
@@ -306,7 +308,7 @@ pub const THIRTEEN_STRINGS: [&'static str; 279] = [
     "diez-y-tres", // Spanglish
     "trese", // Tagalog
     "on üç", // Turkish
-    "dektri", //Speranto
+    // "dektri", //Speranto (duplicate)
     "tlettax", // Maltese
     "tretton", // Swedish
     "பதின்மூன்று", // Tamil
@@ -339,8 +341,8 @@ pub const THIRTEEN_STRINGS: [&'static str; 279] = [
     "onúsh", // Kazakh latin,
     "онүш", // Kazakh
     "онуш", // Kazakh
-    "onúsh", // Kazakh latin
+    // "onúsh", // Kazakh latin (duplicate)
     "paci", // lojban
     "ishumi nantathu", // isiZulu
-    "lishumi elinesithathu" // isiXhosa
-];
+    "lishumi elinesithathu", // isiXhosa
+};
