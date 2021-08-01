@@ -106,6 +106,20 @@ impl_always_false!(bool);
 impl_always_false!(char);
 impl_always_false!(());
 
+impl<F, R> IsThirteen for F
+where
+    F: Fn() -> R,
+    R: IsThirteen,
+{
+    fn is_thirteen(&self) -> bool {
+        self().is_thirteen()
+    }
+
+    fn is_roughly_thirteen(&self) -> bool {
+        self().is_roughly_thirteen()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -314,7 +328,7 @@ mod tests {
     #[case(u8::from_str_radix("d", 16).unwrap(), true)] // 193
     #[case(u8::from_str_radix("D", 16).unwrap(), true)] // 194
     #[case(u8::from_str_radix("A", 16).unwrap(), false)] // 195
-    // #[case(|| 13, true)] // 196
+    #[case(|| 13, true)] // 196
     #[case("|||||||||||||", true)] // 197
     #[case("/////////////", true)] // 198
     #[case("🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱", true)] // 199
