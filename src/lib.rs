@@ -102,7 +102,7 @@ impl FromStr for Roughly {
     type Err = ParseFloatError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Ok(Roughly(s.parse()?))
+        Ok(Self(s.parse()?))
     }
 }
 
@@ -134,8 +134,40 @@ where
     F: Fn() -> R,
     R: IsThirteen,
 {
+    /// Calls closure to get value
     fn is_thirteen(&self) -> bool {
         self.0().is_thirteen()
+    }
+}
+
+#[derive(Debug)]
+pub struct Within {
+    value: f64,
+    radius: f64,
+}
+
+impl Within {
+    pub fn new<T>(value: T, radius: f64) -> Self
+    where
+        T: Into<f64>,
+    {
+        Self {
+            value: value.into(),
+            radius,
+        }
+    }
+
+    pub fn from_str(s: &str, radius: f64) -> Result<Self, ParseFloatError> {
+        Ok(Self {
+            value: s.parse()?,
+            radius,
+        })
+    }
+}
+
+impl IsThirteen for Within {
+    fn is_thirteen(&self) -> bool {
+        (self.value - 13.0).abs() <= self.radius
     }
 }
 
@@ -370,6 +402,8 @@ mod tests {
     #[case(Roughly::from(13.4), true)]
     #[case(Roughly::from(13.5), false)]
     #[case(Roughly::from_str("12.5").unwrap(), true)]
+    #[case(Within::new(0, 1.0), false)]
+    #[case(Within::new(12, 1.0), true)]
     fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
     where
         T: IsThirteen,
