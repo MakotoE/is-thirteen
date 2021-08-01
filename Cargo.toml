@@ -6,3 +6,6 @@ description = "reserved"
 license = "MIT"
 
 [dependencies]
+
+[dev-dependencies]
+rstest = "0.10"
