@@ -194,5 +194,27 @@ impl IsThirteen for ContainsLetters {
     }
 }
 
+#[derive(Debug, Clone)]
+pub struct Anagram {
+    // It could be stored as a sorted Vec for smaller size but hash set has better time complexity
+    // (O(1) vs O(log(n)).
+    letters: HashSet<u8>,
+}
+
+impl Anagram {
+    pub fn new(s: &str) -> Self {
+        Self {
+            letters: s.bytes().collect(),
+        }
+    }
+}
+
+impl IsThirteen for Anagram {
+    fn is_thirteen(&self) -> bool {
+        let thirteen_letters: HashSet<u8> = "thirteen".bytes().collect();
+        self.letters == thirteen_letters
+    }
+}
+
 #[cfg(test)]
 mod lib_test;

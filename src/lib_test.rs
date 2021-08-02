@@ -234,6 +234,8 @@ use rstest::rstest;
 #[case(Within::new(12, 1.0), true)]
 #[case(ContainsLetters::new(""), false)]
 #[case(ContainsLetters::new("eihbtrtaecdn"), true)]
+#[case(Anagram::new(""), false)]
+#[case(Anagram::new("nrteehit"), true)]
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,
