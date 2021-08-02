@@ -6,6 +6,8 @@ use std::num::ParseFloatError;
 use std::str::FromStr;
 use thirteen_strings::THIRTEEN_STRINGS;
 
+const THIRTEEN_STR: &str = "thirteen";
+
 pub trait IsThirteen {
     fn is_thirteen(&self) -> bool;
 }
@@ -211,8 +213,17 @@ impl Anagram {
 
 impl IsThirteen for Anagram {
     fn is_thirteen(&self) -> bool {
-        let thirteen_letters: HashSet<u8> = "thirteen".bytes().collect();
+        let thirteen_letters: HashSet<u8> = THIRTEEN_STR.bytes().collect();
         self.letters == thirteen_letters
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct Backwards<'s>(pub &'s str);
+
+impl IsThirteen for Backwards<'_> {
+    fn is_thirteen(&self) -> bool {
+        self.0.bytes().rev().eq(THIRTEEN_STR.bytes())
     }
 }
 
