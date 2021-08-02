@@ -1,6 +1,6 @@
 use phf::{phf_set, Set};
 
-/// Strings that are thirteen. All strings are lowercase.
+/// Strings that are thirteen.
 pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "xiii", // Roman numeral 13
     "1.3", // Basically 13, see proof in #420
@@ -44,7 +44,7 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "13i",
 
     // B just looks like 13 written closer
-    "b",
+    // "B", // Only case-sensitive string
     //For cultural inclusiveness also include German variants
     "ß",
     // "ß", (duplicate)

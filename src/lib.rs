@@ -50,7 +50,7 @@ impl_for_float!(f32);
 
 impl IsThirteen for &str {
     fn is_thirteen(&self) -> bool {
-        *self == "13"
+        matches!(*self, "13" | "B")
             || (self.len() == 13 && self.bytes().all(|b| matches!(b, b'I' | b'l' | b'1')))
             || is_thirteen_equal_chars(self)
             || THIRTEEN_STRINGS.contains(self.to_lowercase().as_str())
