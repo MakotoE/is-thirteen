@@ -233,11 +233,11 @@ use rstest::rstest;
 #[case(Within::new(0, 1.0), false)]
 #[case(Within::new(12, 1.0), true)]
 #[case(ContainsLetters::new(""), false)]
-#[case(ContainsLetters::new("eihbtrtaecdn"), true)]
+#[case(ContainsLetters::new("eihbtrtAecdn"), true)]
 #[case(Anagram::new(""), false)]
-#[case(Anagram::new("nrteehit"), true)]
+#[case(Anagram::new("nRteehit"), true)]
 #[case(Backwards(""), false)]
-#[case(Backwards("neetriht"), true)]
+#[case(Backwards("neetRiht"), true)]
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,

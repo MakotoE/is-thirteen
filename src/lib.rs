@@ -183,7 +183,7 @@ pub struct ContainsLetters {
 impl ContainsLetters {
     pub fn new(s: &str) -> Self {
         Self {
-            letters: s.bytes().collect(),
+            letters: s.to_lowercase().bytes().collect(),
         }
     }
 }
@@ -206,7 +206,7 @@ pub struct Anagram {
 impl Anagram {
     pub fn new(s: &str) -> Self {
         Self {
-            letters: s.bytes().collect(),
+            letters: s.to_lowercase().bytes().collect(),
         }
     }
 }
@@ -223,7 +223,16 @@ pub struct Backwards<'s>(pub &'s str);
 
 impl IsThirteen for Backwards<'_> {
     fn is_thirteen(&self) -> bool {
-        self.0.bytes().rev().eq(THIRTEEN_STR.bytes())
+        self.0.to_lowercase().bytes().rev().eq(THIRTEEN_STR.bytes())
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct AtomicNumber<'s>(pub &'s str);
+
+impl IsThirteen for AtomicNumber<'_> {
+    fn is_thirteen(&self) -> bool {
+        self.0.to_lowercase() == "aluminum"
     }
 }
 
