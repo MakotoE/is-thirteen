@@ -1,13 +1,14 @@
 use phf::{phf_set, Set};
 
+/// Strings that are thirteen. All strings are lowercase.
 pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "xiii", // Roman numeral 13
     "1.3", // Basically 13, see proof in #420
     "1️⃣3️⃣", // emoji sequence of 1 and 3
-    "https://en.wikipedia.org/wiki/This_Is_Thirteen", // Because it is thirteen
+    "https://en.wikipedia.org/wiki/this_is_thirteen", // Because it is thirteen
     "https://scontent.cdninstagram.com/hphotos-xtf1/t51.2885-15/s320x320/e35/12237511_444845689040315_1101385461_n.jpg", // Just because we can
-    "https://www.youtube.com/watch?v=pte3Jg-2Ax4", // Thirteen by Big Star
-    "https://www.youtube.com/watch?v=33Kv5D2zwyc", // The best Johny Cash's song
+    "https://www.youtube.com/watch?v=pte3jg-2ax4", // Thirteen by Big Star
+    "https://www.youtube.com/watch?v=33kv5d2zwyc", // The best Johny Cash's song
     "remy hadley", // And because she's "Thirteen"
     "olivia wilde", // AND because SHE's "Thirteen"
     "baker's dozen", // Bakers gonna bake
@@ -17,12 +18,12 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "jason fly", // XIII of The XX
     "http://www.imdb.com/title/tt0798817/", // 13 (2010)
     "https://www.imdb.com/title/tt2991516/", // 13/13/13 (2013)
-    "https://en.wikipedia.org/wiki/XIII_(video_game)", // Because video games are also culture
+    "https://en.wikipedia.org/wiki/xiii_(video_game)", // Because video games are also culture
     "dilma", //Dilma, former president of Brazil. Her number is 13: https://www.google.com/search?q=dilma+13
-    "PT", // PT is Brazilian political party represented by the number 13
-    "Washington Luís", // Brazil's thirteenth president
-    "Millard Fillmore", // Thirteenth President of the United States
-    "Louis XIII", // Thirteenth king of France
+    "pt", // PT is Brazilian political party represented by the number 13
+    "washington luís", // Brazil's thirteenth president
+    "millard fillmore", // Thirteenth President of the United States
+    "louis xiii", // Thirteenth king of France
     // "https://s3.amazonaws.com/rapgenius/calle13.jpg", // Calle 13, famous latin american band (duplicate)
 
 
@@ -33,7 +34,7 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "end of slavery", // Thirteenth Amendment
 
     // Television characters
-    "Jodie Whittaker",  // the 13th Doctor in the BBC series, "Doctor Who"
+    "jodie whittaker",  // the 13th Doctor in the BBC series, "Doctor Who"
 
     "weedle", //#13 Pokémon
 
@@ -43,13 +44,13 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "13i",
 
     // B just looks like 13 written closer
-    "B",
+    "b",
     //For cultural inclusiveness also include German variants
     "ß",
-    "ẞ",
+    // "ß", (duplicate)
     //Also greek
     "β",
-    "Β", //actually upper case Beta, not B
+    // "β", //actually upper case Beta, not B (duplicate)
     //And Chinese
     "阝", //(Kangxi radical)
 
@@ -67,8 +68,8 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "e|",
 
     // Flipped characters
-    "ƖƐ",
-    "ƐƖ",
+    "ɩɛ",
+    "ɛɩ",
 
     // Password variations
     "th1rt33n",
@@ -96,13 +97,13 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
 
     // Caesar shift
     "wkluwhhq",
-    "Wkluwhhq",
-    "WKLUWHHQ",
+    // "wkluwhhq", (duplicate)
+    // "wkluwhhq", (duplicate)
 
     //md5 hash
     "c51ce410c124a10e0db5e4b97fc2af39",
     //also md5 hash but UPPERCASE
-    "C51CE410C124A10E0DB5E4B97FC2AF39",
+    // "c51ce410c124a10e0db5e4b97fc2af39", (duplicate)
 
     // hex
     "74 68 69 72 74 65 65 6e",
@@ -113,10 +114,10 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "54 48 49 52 54 45 45 4e 0d 0a 0d 0a",
 
     // base64
-    "dGhpcnRlZW4=",
-    "VGhpcnRlZW4=",
-    "VEhJUlRFRU4=",
-    "MTM=",
+    "dghpcnrlzw4=",
+    "vghpcnrlzw4=",
+    "vehjulrfru4=",
+    "mtm=",
 
     // Languages
     "thirteen", // English
@@ -194,7 +195,7 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "ცამეტი", // Georgian
     "δεκατρία", // Greek
     "drizäh", // Swiss German
-    "wa’maH wej", // Klingon
+    "wa’mah wej", // Klingon
     "‘umikūmākolu", // Hawaiian
     "שלוש עשרה", // Hebrew
     "שלושעשרה", // Hebrew (without space)
@@ -312,11 +313,11 @@ pub static THIRTEEN_STRINGS: Set<&'static str> = phf_set! {
     "tlettax", // Maltese
     "tretton", // Swedish
     "பதின்மூன்று", // Tamil
-    "Patiṉmūṉṟu", // Tamil
+    "patiṉmūṉṟu", // Tamil
     "สิบสาม", // Thai
     "๑๓", // Thai Numeral
-    "SipSam", // Thai Transcription
-    "Sip Sam", // Thai Transcription with space
+    "sipsam", // Thai Transcription
+    "sip sam", // Thai Transcription with space
     "тринадцять", // Ukrainian
     "تیرہ", // Urdu
     "tayra", // Roman Urdu

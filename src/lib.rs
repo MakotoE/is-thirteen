@@ -53,7 +53,6 @@ impl IsThirteen for &str {
         *self == "13"
             || (self.len() == 13 && self.bytes().all(|b| matches!(b, b'I' | b'l' | b'1')))
             || is_thirteen_equal_chars(self)
-            || THIRTEEN_STRINGS.contains(self)
             || THIRTEEN_STRINGS.contains(self.to_lowercase().as_str())
     }
 }
@@ -116,6 +115,7 @@ impl IsThirteen for Roughly {
     }
 }
 
+/// Calls closure to get value.
 pub struct ReturnedValue<T>(pub T);
 
 macro_rules! impl_debug {
@@ -138,7 +138,6 @@ where
     F: Fn() -> R,
     R: IsThirteen,
 {
-    /// Calls closure to get value
     fn is_thirteen(&self) -> bool {
         self.0().is_thirteen()
     }
@@ -198,8 +197,8 @@ impl IsThirteen for ContainsLetters {
 
 #[derive(Debug, Clone)]
 pub struct Anagram {
-    // It could be stored as a sorted Vec for smaller size but hash set has better time complexity
-    // (O(1) vs O(log(n)).
+    // It could be stored as a sorted Vec for smaller size but hash set has better insertion time
+    // complexity (O(1) vs O(log(n)).
     letters: HashSet<u8>,
 }
 

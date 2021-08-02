@@ -253,3 +253,9 @@ where
 fn test_is_thirteen_equal_chars(#[case] s: &str, #[case] expected: bool) {
     assert_eq!(is_thirteen_equal_chars(s), expected);
 }
+
+#[test]
+fn thirteen_strings() {
+    // All THIRTEEN_STRINGS should be lowercase
+    assert!(THIRTEEN_STRINGS.iter().all(|&s| s == s.to_lowercase()));
+}
