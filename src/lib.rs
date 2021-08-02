@@ -1,5 +1,6 @@
 mod thirteen_strings;
 
+use fnv::FnvHashSet as HashSet;
 use std::fmt::{Debug, Formatter};
 use std::num::ParseFloatError;
 use std::str::FromStr;
@@ -87,7 +88,7 @@ impl_always_false!(bool);
 impl_always_false!(char);
 impl_always_false!(());
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Roughly(f64);
 
 impl<T> From<T> for Roughly
@@ -141,7 +142,7 @@ where
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Within {
     value: f64,
     radius: f64,
@@ -169,6 +170,27 @@ impl Within {
 impl IsThirteen for Within {
     fn is_thirteen(&self) -> bool {
         (self.value - 13.0).abs() <= self.radius
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct ContainsLetters {
+    letters: HashSet<u8>,
+}
+
+impl ContainsLetters {
+    pub fn new(s: &str) -> Self {
+        Self {
+            letters: s.bytes().collect(),
+        }
+    }
+}
+
+impl IsThirteen for ContainsLetters {
+    fn is_thirteen(&self) -> bool {
+        [b't', b'h', b'i', b'r', b't', b'e', b'e', b'n']
+            .iter()
+            .all(|b| self.letters.contains(b))
     }
 }
 

@@ -232,6 +232,8 @@ use rstest::rstest;
 #[case(Roughly::from_str("12.5").unwrap(), true)]
 #[case(Within::new(0, 1.0), false)]
 #[case(Within::new(12, 1.0), true)]
+#[case(ContainsLetters::new(""), false)]
+#[case(ContainsLetters::new("eihbtrtaecdn"), true)]
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,
