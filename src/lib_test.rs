@@ -1,4 +1,7 @@
 use super::*;
+use chrono::Datelike;
+use chrono::TimeZone;
+use chrono::Utc;
 use rstest::rstest;
 
 #[rstest]
@@ -33,185 +36,185 @@ use rstest::rstest;
 #[case("https://en.wikipedia.org/wiki/XIII_(video_game)", true)] // 24
 #[case("http://www.imdb.com/title/tt0798817/", true)] // 25
 #[case("https://www.imdb.com/title/tt2991516/", true)] // 26
-// #[case(2003, false)] // Can be done with chrono::Utc::today().year()
-#[case("13+0i", true)] // 27
-#[case("13i", true)] //  28
-#[case("13 + 13i", true)] //  29
-#[case("12i", false)] //  30
-#[case("Ei", true)] //  31
-#[case("EI", true)] //  32
-#[case("E1", true)] //  33
-#[case("El", true)] //  34
-#[case("E|", true)] //  35
-#[case("ƖƐ", true)] //  36
-#[case("ƐƖ", true)] //  37
-#[case("th1rt33n", true)] //  38
-#[case("th1rte3n", true)] //  39
-#[case("th1rteen", true)] //  40
-#[case("thirt3en", true)] //  41
-#[case("thirt33n", true)] //  42
-#[case("thirte3n", true)] //  43
-#[case("dertien", true)] //  44
-#[case("ثلاثة عشر", true)] //  45
-#[case("تلطاشر", true)] //  46
-#[case("تلتاشر", true)] //  47
-#[case("طلتاشر", true)] //  48
-#[case("طلطاشر", true)] //  49
-#[case("dertiendertien", true)] //  50
-#[case("seri-un-teng", true)] //  51
-#[case("seriunteng", true)] //  52
-#[case("serí-un-teng", true)] //  53
-#[case("seríunteng", true)] //  54
-#[case("тринадесет", true)] //  55
-#[case("тринайсет", true)] //  56
-#[case("tretze", true)] //  57
-#[case("napulo ug tulo", true)] //  58
-#[case("třináct", true)] //  59
-#[case("十三", true)] //  60
-#[case("拾參", true)] //  61
-#[case("拾叁", true)] //  62
-#[case("拾叄", true)] //  63
-#[case("拾参", true)] //  64
-#[case("trinaest", true)] //  65
-#[case("tretten", true)] //  66
-#[case("senthi", true)] //  67
-#[case("kolmteist", true)] //  68
-#[case("thirteen", true)] //  69
-#[case("labintatlo", true)] //  70
-#[case("kolmetoista", true)] //  71
-#[case("treize", true)] //  72
-#[case("treizième", true)] //  73
-#[case("dreizehn", true)] //  74
-#[case("ცამეტი", true)] //  75
-#[case("‘umikūmākolu", true)] //  76
-#[case("שלוש עשרה", true)] //  77
-#[case("שלושעשרה", true)] //  78
-#[case("ֹשְלֹש- עֶשְֹרֵה", true)] //  79
-#[case("שלושה עשר", true)] //  80
-#[case("שלושהעשר", true)] //  81
-#[case("ֹשְלֹשָה- עָשָֹר", true)] //  82
-#[case("יג", true)] //  83
-#[case("י״ג", true)] //  84
-#[case("तेरह", true)] //  85
-#[case("tizenhárom", true)] //  86
-#[case("trí déag", true)] //  87
-#[case("tredici", true)] //  88
-#[case("on üç", true)] //  89
-#[case("ಹದಿಮೂರು", true)] //  90
-#[case("పదమూడు", true)] //  91
-#[case("೧೩", true)] //  92
-#[case("열셋", true)] //  93
-#[case("십삼", true)] //  94
-#[case("sêzdeh", true)] //  95
-#[case("tredecim", true)] //  96
-#[case("trīspadsmit", true)] //  97
-#[case("trylika", true)] //  98
-#[case("dräizéng", true)] //  99
-#[case("тринаесет", true)] // 100
-#[case("tiga belas", true)] // 101
-#[case("арван", true)] // 102
-#[case(".---- ...--", true)] // 103
-#[case("matlactlihuan yei", true)] // 104
-#[case("mahtlactli omei", true)] // 105
-#[case("mahtlactli ihuan yei", true)] // 106
-#[case("irteenthay", true)] // 107
-#[case("trzynaście", true)] // 108
-#[case("trzynasty", true)] // 109
-#[case("trzynasta", true)] // 110
-#[case("trzynaste", true)] // 111
-#[case("trzynaści", true)] // 112
-#[case("trzynastego", true)] // 113
-#[case("trzynastej", true)] // 114
-#[case("trzynastych", true)] // 115
-#[case("trzynastemu", true)] // 116
-#[case("trzynastym", true)] // 117
-#[case("trzynastą", true)] // 118
-#[case("trzynastymi", true)] // 119
-#[case("trzynastu", true)] // 120
-#[case("trzynastek", true)] // 121
-#[case("trzynastoma", true)] // 122
-#[case("trzynaścioro", true)] // 123
-#[case("trzynastka", true)] // 124
-#[case("trzynastki", true)] // 125
-#[case("trzynastką", true)] // 126
-#[case("trzynastce", true)] // 127
-#[case("trzynastko", true)] // 128
-#[case("trzynaściorgiem", true)] // 129
-#[case("trzynaściorgu", true)] // 130
-#[case("trzynaściorga", true)] // 131
-#[case("trzynastokrotny", true)] // 132
-#[case("trzynastokrotnie", true)] // 133
-#[case("trzynastokrotną", true)] // 134
-#[case("trzynastokrotnemu", true)] // 135
-#[case("trzynastokrotnej", true)] // 136
-#[case("trzynastokrotnych", true)] // 137
-#[case("trzynastokrotność", true)] // 138
-#[case("trzynastokrotności", true)] // 139
-#[case("trzynastokrotnością", true)] // 140
-#[case("treze", true)] // 141
-#[case("ਤੇਰਾਂ", true)] // 142
-#[case("੧੩", true)] // 143
-#[case("treisprezece", true)] // 144
-#[case("тринадцать", true)] // 145
-#[case("тринаест", true)] // 146
-#[case("trinásť", true)] // 147
-#[case("wa’maH wej", true)] // 148
-#[case("trinajst", true)] // 149
-#[case("trece", true)] // 150
-#[case("dektri", true)] // 151
-#[case("trese", true)] // 152
-#[case("tretton", true)] // 153
-#[case("பதின்மூன்று", true)] // 154
-#[case("สิบสาม", true)] // 155
-#[case("тринадцять", true)] // 156
-#[case("تیرہ", true)] // 157
-#[case("tayra", true)] // 158
-#[case("tri ar ddeg", true)] // 159
-#[case("דרייַצן", true)] // 160
-#[case("דרייצן", true)] // 161
-#[case("kumi na tatu", true)] // 162
-#[case("പതിമൂന്ന്", true)] // 163
-#[case("१३", true)] // 164
-#[case("तेह्र", true)] // 165
-#[case("quainel", true)] // 166
-#[case("mînuiug", true)] // 167
-#[case("7h1r733n", true)] // 168
-#[case("B", true)] // 169
-#[case("b", false)] // 170
-#[case("ß", true)] // 171
-#[case("ẞ", true)] // 172
-#[case("Β", true)] // 173
-#[case("β", true)] // 174
-#[case("阝", true)] // 175
-#[case("i3", true)] // 176
-#[case("I3", true)] // 177
-#[case("l3", true)] // 178
-#[case("L3", true)] // 179
-#[case("|3", true)] // 180
-#[case("!3", true)] // 181
-#[case("Dilma", true)] // 182
-#[case(25 - 12, true)] // 183
-#[case(1 + 12, true)] // 184
-#[case((2 * 8 + 11 - 1) / 2, true)] // 185
-#[case((10 - 1 + 32) / 4 * 3, false)] // 186
-#[case(Roughly::from(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 187
-#[case(13, true)] // 188
-#[case(14, false)] // 189
-#[case(u8::from_str_radix("1101", 2).unwrap(), true)] // 190
-#[case(u8::from_str_radix("1111", 2).unwrap(), false)] // 191
-#[case(u8::from_str_radix("15", 8).unwrap(), true)] // 192
-#[case(u8::from_str_radix("13", 8).unwrap(), false)] // 193
-#[case(u8::from_str_radix("d", 16).unwrap(), true)] // 194
-#[case(u8::from_str_radix("D", 16).unwrap(), true)] // 195
-#[case(u8::from_str_radix("A", 16).unwrap(), false)] // 196
-#[case(ReturnedValue(|| 13), true)] // 197
-#[case("|||||||||||||", true)] // 198
-#[case("/////////////", true)] // 199
-#[case("🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱", true)] // 200
-#[case("oooooooooooooo", false)] // 201
-#[case("bbbbbbbbbbb", false)] // 202
-#[case("||h||||||||||", false)] // 203
-#[case("///i/////////", false)] // 204
+#[case(Utc::today().year() - Utc.ymd(2003, 1, 1).year(), false)] // 27
+#[case("13+0i", true)] // 28
+#[case("13i", true)] // 29
+#[case("13 + 13i", true)] // 30
+#[case("12i", false)] // 31
+#[case("Ei", true)] // 32
+#[case("EI", true)] // 33
+#[case("E1", true)] // 34
+#[case("El", true)] // 35
+#[case("E|", true)] // 36
+#[case("ƖƐ", true)] // 37
+#[case("ƐƖ", true)] // 38
+#[case("th1rt33n", true)] // 39
+#[case("th1rte3n", true)] // 40
+#[case("th1rteen", true)] // 41
+#[case("thirt3en", true)] // 42
+#[case("thirt33n", true)] // 43
+#[case("thirte3n", true)] // 44
+#[case("dertien", true)] // 45
+#[case("ثلاثة عشر", true)] // 46
+#[case("تلطاشر", true)] // 47
+#[case("تلتاشر", true)] // 48
+#[case("طلتاشر", true)] // 49
+#[case("طلطاشر", true)] // 50
+#[case("dertiendertien", true)] // 51
+#[case("seri-un-teng", true)] // 52
+#[case("seriunteng", true)] // 53
+#[case("serí-un-teng", true)] // 54
+#[case("seríunteng", true)] // 55
+#[case("тринадесет", true)] // 56
+#[case("тринайсет", true)] // 57
+#[case("tretze", true)] // 58
+#[case("napulo ug tulo", true)] // 59
+#[case("třináct", true)] // 60
+#[case("十三", true)] // 61
+#[case("拾參", true)] // 62
+#[case("拾叁", true)] // 63
+#[case("拾叄", true)] // 64
+#[case("拾参", true)] // 65
+#[case("trinaest", true)] // 66
+#[case("tretten", true)] // 67
+#[case("senthi", true)] // 68
+#[case("kolmteist", true)] // 69
+#[case("thirteen", true)] // 70
+#[case("labintatlo", true)] // 71
+#[case("kolmetoista", true)] // 72
+#[case("treize", true)] // 73
+#[case("treizième", true)] // 74
+#[case("dreizehn", true)] // 75
+#[case("ცამეტი", true)] // 76
+#[case("‘umikūmākolu", true)] // 77
+#[case("שלוש עשרה", true)] // 78
+#[case("שלושעשרה", true)] // 79
+#[case("ֹשְלֹש- עֶשְֹרֵה", true)] // 80
+#[case("שלושה עשר", true)] // 81
+#[case("שלושהעשר", true)] // 82
+#[case("ֹשְלֹשָה- עָשָֹר", true)] // 83
+#[case("יג", true)] // 84
+#[case("י״ג", true)] // 85
+#[case("तेरह", true)] // 86
+#[case("tizenhárom", true)] // 87
+#[case("trí déag", true)] // 88
+#[case("tredici", true)] // 89
+#[case("on üç", true)] // 90
+#[case("ಹದಿಮೂರು", true)] // 91
+#[case("పదమూడు", true)] // 92
+#[case("೧೩", true)] // 93
+#[case("열셋", true)] // 94
+#[case("십삼", true)] // 95
+#[case("sêzdeh", true)] // 96
+#[case("tredecim", true)] // 97
+#[case("trīspadsmit", true)] // 98
+#[case("trylika", true)] // 99
+#[case("dräizéng", true)] // 100
+#[case("тринаесет", true)] // 101
+#[case("tiga belas", true)] // 102
+#[case("арван", true)] // 103
+#[case(".---- ...--", true)] // 104
+#[case("matlactlihuan yei", true)] // 105
+#[case("mahtlactli omei", true)] // 106
+#[case("mahtlactli ihuan yei", true)] // 107
+#[case("irteenthay", true)] // 108
+#[case("trzynaście", true)] // 109
+#[case("trzynasty", true)] // 110
+#[case("trzynasta", true)] // 111
+#[case("trzynaste", true)] // 112
+#[case("trzynaści", true)] // 113
+#[case("trzynastego", true)] // 114
+#[case("trzynastej", true)] // 115
+#[case("trzynastych", true)] // 116
+#[case("trzynastemu", true)] // 117
+#[case("trzynastym", true)] // 118
+#[case("trzynastą", true)] // 119
+#[case("trzynastymi", true)] // 120
+#[case("trzynastu", true)] // 121
+#[case("trzynastek", true)] // 122
+#[case("trzynastoma", true)] // 123
+#[case("trzynaścioro", true)] // 124
+#[case("trzynastka", true)] // 125
+#[case("trzynastki", true)] // 126
+#[case("trzynastką", true)] // 127
+#[case("trzynastce", true)] // 128
+#[case("trzynastko", true)] // 129
+#[case("trzynaściorgiem", true)] // 130
+#[case("trzynaściorgu", true)] // 131
+#[case("trzynaściorga", true)] // 132
+#[case("trzynastokrotny", true)] // 133
+#[case("trzynastokrotnie", true)] // 134
+#[case("trzynastokrotną", true)] // 135
+#[case("trzynastokrotnemu", true)] // 136
+#[case("trzynastokrotnej", true)] // 137
+#[case("trzynastokrotnych", true)] // 138
+#[case("trzynastokrotność", true)] // 139
+#[case("trzynastokrotności", true)] // 140
+#[case("trzynastokrotnością", true)] // 141
+#[case("treze", true)] // 142
+#[case("ਤੇਰਾਂ", true)] // 143
+#[case("੧੩", true)] // 144
+#[case("treisprezece", true)] // 145
+#[case("тринадцать", true)] // 146
+#[case("тринаест", true)] // 147
+#[case("trinásť", true)] // 148
+#[case("wa’maH wej", true)] // 149
+#[case("trinajst", true)] // 150
+#[case("trece", true)] // 151
+#[case("dektri", true)] // 152
+#[case("trese", true)] // 153
+#[case("tretton", true)] // 154
+#[case("பதின்மூன்று", true)] // 155
+#[case("สิบสาม", true)] // 156
+#[case("тринадцять", true)] // 157
+#[case("تیرہ", true)] // 158
+#[case("tayra", true)] // 159
+#[case("tri ar ddeg", true)] // 160
+#[case("דרייַצן", true)] // 161
+#[case("דרייצן", true)] // 162
+#[case("kumi na tatu", true)] // 163
+#[case("പതിമൂന്ന്", true)] // 164
+#[case("१३", true)] // 165
+#[case("तेह्र", true)] // 166
+#[case("quainel", true)] // 167
+#[case("mînuiug", true)] // 168
+#[case("7h1r733n", true)] // 169
+#[case("B", true)] // 170
+#[case("b", false)] // 171
+#[case("ß", true)] // 172
+#[case("ẞ", true)] // 173
+#[case("Β", true)] // 174
+#[case("β", true)] // 175
+#[case("阝", true)] // 176
+#[case("i3", true)] // 177
+#[case("I3", true)] // 178
+#[case("l3", true)] // 179
+#[case("L3", true)] // 180
+#[case("|3", true)] // 181
+#[case("!3", true)] // 182
+#[case("Dilma", true)] // 183
+#[case(25 - 12, true)] // 184
+#[case(1 + 12, true)] // 185
+#[case((2 * 8 + 11 - 1) / 2, true)] // 186
+#[case((10 - 1 + 32) / 4 * 3, false)] // 187
+#[case(Roughly::from(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 188
+#[case(13, true)] // 189
+#[case(14, false)] // 190
+#[case(u8::from_str_radix("1101", 2).unwrap(), true)] // 191
+#[case(u8::from_str_radix("1111", 2).unwrap(), false)] // 192
+#[case(u8::from_str_radix("15", 8).unwrap(), true)] // 193
+#[case(u8::from_str_radix("13", 8).unwrap(), false)] // 194
+#[case(u8::from_str_radix("d", 16).unwrap(), true)] // 195
+#[case(u8::from_str_radix("D", 16).unwrap(), true)] // 196
+#[case(u8::from_str_radix("A", 16).unwrap(), false)] // 197
+#[case(ReturnedValue(|| 13), true)] // 198
+#[case("|||||||||||||", true)] // 199
+#[case("/////////////", true)] // 200
+#[case("🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱", true)] // 201
+#[case("oooooooooooooo", false)] // 202
+#[case("bbbbbbbbbbb", false)] // 203
+#[case("||h||||||||||", false)] // 204
+#[case("///i/////////", false)] // 205
 // Additional test cases
 #[case(0, false)]
 #[case(13.0, true)]

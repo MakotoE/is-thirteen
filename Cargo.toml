@@ -10,3 +10,4 @@ phf = { version = "0.9", features = ["macros"] }
 
 [dev-dependencies]
 rstest = "0.10"
+chrono = "0.4"
