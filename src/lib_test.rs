@@ -250,6 +250,7 @@ where
 #[rstest]
 #[case("", false)]
 #[case("aaaaaaaaaaaaa", true)]
+#[case("aaaaaaaaaaaab", false)]
 fn test_is_thirteen_equal_chars(#[case] s: &str, #[case] expected: bool) {
     assert_eq!(is_thirteen_equal_chars(s), expected);
 }

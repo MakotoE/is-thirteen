@@ -1,20 +1,24 @@
-mod thirteen_strings;
+pub mod thirteen_strings;
 
 use fnv::FnvHashSet as HashSet;
-use std::fmt::{Debug, Formatter};
+use std::fmt::Debug;
 use std::num::ParseFloatError;
 use std::str::FromStr;
 use thirteen_strings::THIRTEEN_STRINGS;
 
 const THIRTEEN_STR: &str = "thirteen";
 
+/// A type that can be compared to thirteen. This trait is implemented for all primitive types and
+/// `&str`.
 pub trait IsThirteen {
+    /// Returns `true` if self is thirteen.
     fn is_thirteen(&self) -> bool;
 }
 
 macro_rules! impl_for_integer {
     ($type:ty) => {
         impl IsThirteen for $type {
+            /// Returns `true` if `self == 13`.
             fn is_thirteen(&self) -> bool {
                 *self == 13
             }
@@ -38,6 +42,7 @@ impl_for_integer!(usize);
 macro_rules! impl_for_float {
     ($type:ty) => {
         impl IsThirteen for $type {
+            /// Returns `true` if `self` is approximately `13`.
             fn is_thirteen(&self) -> bool {
                 (self - 13.0).abs() < <$type>::EPSILON
             }
@@ -49,10 +54,15 @@ impl_for_float!(f64);
 impl_for_float!(f32);
 
 impl IsThirteen for &str {
+    /// Returns `true` if:
+    /// - `self` equals `"13"` or `"B"`
+    /// - `self` is 13 characters long and all characters are equal to each other
+    /// - The lowercase version of `self` is included in [`thirteen_strings::THIRTEEN_STRINGS`]
     fn is_thirteen(&self) -> bool {
         matches!(*self, "13" | "B")
             || (self.len() == 13 && self.bytes().all(|b| matches!(b, b'I' | b'l' | b'1')))
             || is_thirteen_equal_chars(self)
+            // The next line could be non-allocating if there is an ascii-only IsThirteen
             || THIRTEEN_STRINGS.contains(self.to_lowercase().as_str())
     }
 }
@@ -78,6 +88,7 @@ impl IsThirteen for String {
 macro_rules! impl_always_false {
     ($type:ty) => {
         impl IsThirteen for $type {
+            /// Returns `false`.
             fn is_thirteen(&self) -> bool {
                 false
             }
@@ -89,6 +100,7 @@ impl_always_false!(bool);
 impl_always_false!(char);
 impl_always_false!(());
 
+/// `Roughly` is thirteen if it is in [12.5, 13.5).
 #[derive(Debug, Copy, Clone)]
 pub struct Roughly(f64);
 
@@ -115,23 +127,9 @@ impl IsThirteen for Roughly {
     }
 }
 
-/// Calls closure to get value.
+/// `ReturnedValue` calls closure to get the value to compare to thirteen.
+#[derive(Debug, Clone)]
 pub struct ReturnedValue<T>(pub T);
-
-macro_rules! impl_debug {
-    ($type:ty) => {
-        impl<T> Debug for $type
-        where
-            T: Debug,
-        {
-            fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-                write!(f, "{:?}", self)
-            }
-        }
-    };
-}
-
-impl_debug!(ReturnedValue<T>);
 
 impl<F, R> IsThirteen for ReturnedValue<F>
 where
@@ -143,6 +141,7 @@ where
     }
 }
 
+/// `Within` has a custom tolerance for equalling thirteen.
 #[derive(Debug, Copy, Clone)]
 pub struct Within {
     value: f64,
@@ -150,6 +149,7 @@ pub struct Within {
 }
 
 impl Within {
+    /// `radius` is how far `value` can be from 13 to equal 13. That makes sense, right?
     pub fn new<T>(value: T, radius: f64) -> Self
     where
         T: Into<f64>,
@@ -174,6 +174,7 @@ impl IsThirteen for Within {
     }
 }
 
+/// `ContainsLetters` is thirteen if its set of characters is a superset of those in "thirteen."
 #[derive(Debug, Clone)]
 pub struct ContainsLetters {
     letters: HashSet<u8>,
@@ -195,6 +196,8 @@ impl IsThirteen for ContainsLetters {
     }
 }
 
+/// `Anagram` is thirteen if it is an [anagram](https://en.wikipedia.org/wiki/Anagram) of
+/// "thirteen."
 #[derive(Debug, Clone)]
 pub struct Anagram {
     // It could be stored as a sorted Vec for smaller size but hash set has better insertion time
@@ -217,6 +220,7 @@ impl IsThirteen for Anagram {
     }
 }
 
+/// `Backwards` is thirteen if it is the reverse spelling of "thirteen."
 #[derive(Debug, Clone)]
 pub struct Backwards<'s>(pub &'s str);
 
@@ -230,6 +234,7 @@ impl IsThirteen for Backwards<'_> {
     }
 }
 
+/// `AtomicNumber` is thirteen if it is `"aluminum"`.
 #[derive(Debug, Clone)]
 pub struct AtomicNumber<'s>(pub &'s str);
 
