@@ -103,7 +103,7 @@ impl_always_false!(());
 
 /// `Roughly` is thirteen if it is in [12.5, 13.5).
 #[derive(Debug, Copy, Clone)]
-pub struct Roughly(f64);
+pub struct Roughly(pub f64);
 
 impl<T> From<T> for Roughly
 where

@@ -197,7 +197,7 @@ use rstest::rstest;
 #[case(1 + 12, true)] // 185
 #[case((2 * 8 + 11 - 1) / 2, true)] // 186
 #[case((10 - 1 + 32) / 4 * 3, false)] // 187
-#[case(Roughly::from(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 188
+#[case(Roughly(((5.3 + 0.5) * 5.0 - 4.0) / 2.0), true)] // 188
 #[case(13, true)] // 189
 #[case(14, false)] // 190
 #[case(u8::from_str_radix("1101", 2).unwrap(), true)] // 191
@@ -225,10 +225,10 @@ use rstest::rstest;
 #[case((), false)] // 212
 #[case("1111111111111", true)] // 213
 #[case(Roughly::from(0), false)] // 214
-#[case(Roughly::from(12.5), true)] // 215
+#[case(Roughly(12.5), true)] // 215
 #[case(Roughly::from(13), true)] // 216
-#[case(Roughly::from(13.4), true)] // 217
-#[case(Roughly::from(13.5), false)] // 218
+#[case(Roughly(13.4), true)] // 217
+#[case(Roughly(13.5), false)] // 218
 #[case(Roughly::from_str("12.5").unwrap(), true)] // 219
 #[case(Within::new(0, 1.0), false)] // 220
 #[case(Within::new(12, 1.0), true)] // 221
