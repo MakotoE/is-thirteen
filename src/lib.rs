@@ -1,6 +1,7 @@
 pub mod thirteen_strings;
 
 use fnv::FnvHashSet as HashSet;
+use once_cell::sync::OnceCell;
 use std::fmt::Debug;
 use std::num::ParseFloatError;
 use std::str::FromStr;
@@ -213,10 +214,11 @@ impl Anagram {
     }
 }
 
+static THIRTEEN_LETTERS: OnceCell<HashSet<u8>> = OnceCell::new();
+
 impl IsThirteen for Anagram {
     fn is_thirteen(&self) -> bool {
-        let thirteen_letters: HashSet<u8> = THIRTEEN_STR.bytes().collect();
-        self.letters == thirteen_letters
+        self.letters == *THIRTEEN_LETTERS.get_or_init(|| THIRTEEN_STR.bytes().collect())
     }
 }
 
