@@ -236,11 +236,11 @@ impl IsThirteen for Backwards<'_> {
     }
 }
 
-/// `AtomicNumber` is thirteen if it is `"aluminum"`.
+/// `AtomicNumberOf` is thirteen if it contains the string `"aluminum"`.
 #[derive(Debug, Clone)]
-pub struct AtomicNumber<'s>(pub &'s str);
+pub struct AtomicNumberOf<'s>(pub &'s str);
 
-impl IsThirteen for AtomicNumber<'_> {
+impl IsThirteen for AtomicNumberOf<'_> {
     fn is_thirteen(&self) -> bool {
         self.0.eq_ignore_ascii_case("aluminum")
     }

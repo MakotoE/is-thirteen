@@ -6,7 +6,7 @@ This very useful crate is an i18n-complete* production-ready* solution for all o
 
 \* I like asterisks.
 
-This is a port of [is-thirteen](https://github.com/jezen/is-thirteen) and features all tests from the original library. A RIIR blog about how our servers improved by x10-100 will soon be posted to Medium.
+This is a port of [is-thirteen](https://github.com/jezen/is-thirteen) and features all tests from the original library. A RIIR blog about how our servers improved by x10-100 will be posted to Medium shortly.
 
 # Syntax map
 
