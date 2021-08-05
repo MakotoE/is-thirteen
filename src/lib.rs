@@ -1,3 +1,6 @@
+#![doc = include_str!("../README.md")]
+
+/// Contains all thirteen strings.
 pub mod thirteen_strings;
 
 use fnv::FnvHashSet as HashSet;

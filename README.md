@@ -1,6 +1,6 @@
 [![Latest version](https://img.shields.io/crates/v/is-thirteen.svg)](https://crates.io/crates/is-thirteen) [![Documentation](https://docs.rs/is-thirteen/badge.svg)](https://docs.rs/is-thirteen/)
 
-"Sometimes it is difficult to figure out if a variable equals 13 or not. That is why we need `npm install is-thirteen`."
+"Sometimes it is too difficult to figure out if a variable equals 13 or not. That's why we need `is-thirteen`."
 
 &emsp;— Literally no one
 
@@ -8,11 +8,11 @@ This very useful crate is a production-ready* solution for all of your 13-compar
 
 \* I like asterisks.
 
-This is a port of [is-thirteen](https://github.com/jezen/is-thirteen) and features all tests from the original library. A RIIR blog about how our servers improved by x10-100 will be posted to Medium shortly.
+This is a port of [is-thirteen](https://github.com/jezen/is-thirteen) and is tested with all tests from the original library. A RIIR blog about how our servers improved by x10-100 will be posted to Medium shortly.
 
 # Syntax map
 
-The syntax of this library is quite different from that of the original library. This table shows how your messy code from the JS version can be cleaned in the Rust version.
+The syntax of this library is quite different from that of the original library. This table shows how your messy JS code can be cleaned with the Rust version.
 
 | Original version | Rust version |
 |-|-|
