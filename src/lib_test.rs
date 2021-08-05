@@ -240,6 +240,8 @@ use rstest::rstest;
 #[case(Backwards("neetRiht"), true)] // 227
 #[case(AtomicNumberOf(""), false)] // 228
 #[case(AtomicNumberOf("Aluminum"), true)] // 229
+#[case(Divisor(1.0), false)] // 230
+#[case(Divisor(13.0), true)] // 231
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,

@@ -16,10 +16,10 @@ The syntax of this library is quite different from that of the original library.
 |-|-|
 | `is(x).thirteen()` | `x.is_thirteen()` |
 | `is(x).roughly.thirteen()` | `Roughly(x).is_thirteen()` |
-| `is(() => x).returning.thirteen()` | `ReturnedValue(|| x).is_thirteen()` |
-| `is(x).not.thirteen()` | `(!x).is_thirteen()` |
-| `is(x).divisible.thirteen()` | `` |
-| `is(x).square.thirteen()` | `` |
+| `is(() => x).returning.thirteen()` | `ReturnedValue(\|\| x).is_thirteen()` |
+| `is(x).not.thirteen()` | `(!x).is_thirteen() // How lazy do you have to be if you need a library to negate a variable?` |
+| `is(x).divisible.thirteen()` | `Divisor(x).is_thirteen()` |
+| `is(x).square.thirteen()` | `(x * x).is_thirteen()` |
 | `is(x).greater.thirteen()` | `` |
 | `is(x).less.thirteen()` | `` |
 | `is(x).within(1).thirteen()` | `Within::new(x, 1.0).is_thirteen()` |

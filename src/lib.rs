@@ -127,6 +127,16 @@ where
     }
 }
 
+// `Divisor` is thirteen if it is a divisor of 13.
+#[derive(Debug, Clone)]
+pub struct Divisor(pub f64);
+
+impl IsThirteen for Divisor {
+    fn is_thirteen(&self) -> bool {
+        self.0 % 13.0 == 0.0
+    }
+}
+
 /// `Within` has a custom tolerance for equalling thirteen.
 #[derive(Debug, Copy, Clone)]
 pub struct Within {
