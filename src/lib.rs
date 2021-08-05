@@ -86,6 +86,13 @@ impl IsThirteen for String {
     }
 }
 
+impl IsThirteen for char {
+    /// Returns `true` if self matches a thirteen character.
+    fn is_thirteen(&self) -> bool {
+        matches!(*self, 'B' | 'ß' | 'β' | '阝')
+    }
+}
+
 macro_rules! impl_always_false {
     ($type:ty) => {
         impl IsThirteen for $type {
@@ -98,7 +105,6 @@ macro_rules! impl_always_false {
 }
 
 impl_always_false!(bool);
-impl_always_false!(char);
 impl_always_false!(());
 
 /// `Roughly` is thirteen if it is in [12.5, 13.5).

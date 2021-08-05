@@ -238,8 +238,9 @@ use rstest::rstest;
 #[case(Anagram::new("nRteehit"), true)] // 225
 #[case(Backwards(""), false)] // 226
 #[case(Backwards("neetRiht"), true)] // 227
-#[case(AtomicNumber(""), false)] // 228
-#[case(AtomicNumber("Aluminum"), true)] // 229
+#[case(AtomicNumberOf(""), false)] // 228
+#[case(AtomicNumberOf("Aluminum"), true)] // 229
+#[case('B', true)] // 230
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,
