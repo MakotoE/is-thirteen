@@ -9,14 +9,14 @@ use thirteen_strings::THIRTEEN_STRINGS;
 /// `&str`.
 pub trait IsThirteen {
     /// Returns `true` if self is thirteen.
-    fn is_thirteen(&self) -> bool;
+    fn thirteen(&self) -> bool;
 }
 
 macro_rules! impl_for_integer {
     ($type:ty) => {
         impl IsThirteen for $type {
             /// Returns `true` if `self == 13`.
-            fn is_thirteen(&self) -> bool {
+            fn thirteen(&self) -> bool {
                 *self == 13
             }
         }
@@ -40,7 +40,7 @@ macro_rules! impl_for_float {
     ($type:ty) => {
         impl IsThirteen for $type {
             /// Returns `true` if `self` is approximately `13`.
-            fn is_thirteen(&self) -> bool {
+            fn thirteen(&self) -> bool {
                 (self - 13.0).abs() < <$type>::EPSILON
             }
         }
@@ -55,7 +55,7 @@ impl IsThirteen for &str {
     /// - `self` equals `"13"` or `"B"`
     /// - `self` is 13 characters long and all characters are equal to each other
     /// - The lowercase version of `self` is included in [`thirteen_strings::THIRTEEN_STRINGS`]
-    fn is_thirteen(&self) -> bool {
+    fn thirteen(&self) -> bool {
         matches!(*self, "13" | "B")
             || (self.len() == 13 && self.bytes().all(|b| matches!(b, b'I' | b'l' | b'1')))
             || is_thirteen_equal_chars(self)
@@ -77,14 +77,14 @@ fn is_thirteen_equal_chars(s: &str) -> bool {
 }
 
 impl IsThirteen for String {
-    fn is_thirteen(&self) -> bool {
-        self.as_str().is_thirteen()
+    fn thirteen(&self) -> bool {
+        self.as_str().thirteen()
     }
 }
 
 impl IsThirteen for char {
     /// Returns `true` if self matches a thirteen character.
-    fn is_thirteen(&self) -> bool {
+    fn thirteen(&self) -> bool {
         matches!(*self, 'B' | 'ß' | 'β' | '阝')
     }
 }
@@ -93,7 +93,7 @@ macro_rules! impl_always_false {
     ($type:ty) => {
         impl IsThirteen for $type {
             /// Returns `false`.
-            fn is_thirteen(&self) -> bool {
+            fn thirteen(&self) -> bool {
                 false
             }
         }
@@ -108,31 +108,31 @@ impl_always_false!(());
 pub struct Roughly(pub f64);
 
 impl IsThirteen for Roughly {
-    fn is_thirteen(&self) -> bool {
+    fn thirteen(&self) -> bool {
         (12.5..13.5).contains(&self.0)
     }
 }
 
 /// `ReturnedValue` calls closure to get the value to compare to thirteen.
 #[derive(Debug, Clone)]
-pub struct ReturnedValue<T>(pub T);
+pub struct Returns<T>(pub T);
 
-impl<F, R> IsThirteen for ReturnedValue<F>
+impl<F, R> IsThirteen for Returns<F>
 where
     F: Fn() -> R,
     R: IsThirteen,
 {
-    fn is_thirteen(&self) -> bool {
-        self.0().is_thirteen()
+    fn thirteen(&self) -> bool {
+        self.0().thirteen()
     }
 }
 
-// `Divisor` is thirteen if it is a divisor of 13.
+/// `DivisibleBy` is thirteen if it is a divisor of 13.
 #[derive(Debug, Clone)]
-pub struct Divisor(pub f64);
+pub struct DivisibleBy(pub f64);
 
-impl IsThirteen for Divisor {
-    fn is_thirteen(&self) -> bool {
+impl IsThirteen for DivisibleBy {
+    fn thirteen(&self) -> bool {
         self.0 % 13.0 == 0.0
     }
 }
@@ -152,18 +152,18 @@ impl Within {
 }
 
 impl IsThirteen for Within {
-    fn is_thirteen(&self) -> bool {
+    fn thirteen(&self) -> bool {
         (self.value - 13.0).abs() <= self.radius
     }
 }
 
-/// `ContainsLetters` is thirteen if its set of characters is a superset of those in "thirteen."
+/// `CanSpell` is thirteen if its set of characters is a superset of those in "thirteen."
 #[derive(Debug, Clone)]
-pub struct ContainsLetters {
+pub struct CanSpell {
     letters: HashSet<u8>,
 }
 
-impl ContainsLetters {
+impl CanSpell {
     pub fn new(s: &str) -> Self {
         Self {
             letters: s.bytes().map(|b| b.to_ascii_lowercase()).collect(),
@@ -171,22 +171,22 @@ impl ContainsLetters {
     }
 }
 
-impl IsThirteen for ContainsLetters {
-    fn is_thirteen(&self) -> bool {
+impl IsThirteen for CanSpell {
+    fn thirteen(&self) -> bool {
         [b't', b'h', b'i', b'r', b't', b'e', b'e', b'n']
             .iter()
             .all(|b| self.letters.contains(b))
     }
 }
 
-/// `Anagram` is thirteen if it is an [anagram](https://en.wikipedia.org/wiki/Anagram) of
+/// `AnagramOf` is thirteen if it is an [anagram](https://en.wikipedia.org/wiki/Anagram) of
 /// "thirteen."
 #[derive(Debug, Clone)]
-pub struct Anagram {
+pub struct AnagramOf {
     bytes: HashSet<u8>,
 }
 
-impl Anagram {
+impl AnagramOf {
     pub fn new(s: &str) -> Self {
         Self {
             bytes: s.bytes().map(|b| b.to_ascii_lowercase()).collect(),
@@ -197,8 +197,8 @@ impl Anagram {
 const THIRTEEN_STR: &str = "thirteen";
 static THIRTEEN_LETTERS: OnceCell<HashSet<u8>> = OnceCell::new();
 
-impl IsThirteen for Anagram {
-    fn is_thirteen(&self) -> bool {
+impl IsThirteen for AnagramOf {
+    fn thirteen(&self) -> bool {
         self.bytes == *THIRTEEN_LETTERS.get_or_init(|| THIRTEEN_STR.bytes().collect())
     }
 }
@@ -208,8 +208,8 @@ impl IsThirteen for Anagram {
 pub struct Backwards<'s>(pub &'s str);
 
 impl IsThirteen for Backwards<'_> {
-    fn is_thirteen(&self) -> bool {
-        self.0
+    fn thirteen(&self) -> bool {
+        self.0 // TODO optimize
             .bytes()
             .map(|b| b.to_ascii_lowercase())
             .rev()
@@ -217,12 +217,12 @@ impl IsThirteen for Backwards<'_> {
     }
 }
 
-/// `AtomicNumberOf` is thirteen if it contains the string `"aluminum"`.
+/// `AtomicNumber` is thirteen if it contains the string `"aluminum"`.
 #[derive(Debug, Clone)]
-pub struct AtomicNumberOf<'s>(pub &'s str);
+pub struct AtomicNumber<'s>(pub &'s str);
 
-impl IsThirteen for AtomicNumberOf<'_> {
-    fn is_thirteen(&self) -> bool {
+impl IsThirteen for AtomicNumber<'_> {
+    fn thirteen(&self) -> bool {
         self.0.eq_ignore_ascii_case("aluminum")
     }
 }

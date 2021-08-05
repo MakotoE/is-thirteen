@@ -207,7 +207,7 @@ use rstest::rstest;
 #[case(u8::from_str_radix("d", 16).unwrap(), true)] // 195
 #[case(u8::from_str_radix("D", 16).unwrap(), true)] // 196
 #[case(u8::from_str_radix("A", 16).unwrap(), false)] // 197
-#[case(ReturnedValue(|| 13), true)] // 198
+#[case(Returns(|| 13), true)] // 198
 #[case("|||||||||||||", true)] // 199
 #[case("/////////////", true)] // 200
 #[case("🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱🐱", true)] // 201
@@ -232,21 +232,21 @@ use rstest::rstest;
 #[case(Roughly(13.5), false)] // 219
 #[case(Within::new(0.0, 1.0), false)] // 220
 #[case(Within::new(12.0, 1.0), true)] // 221
-#[case(ContainsLetters::new(""), false)] // 222
-#[case(ContainsLetters::new("eihbtrtAecdn"), true)] // 223
-#[case(Anagram::new(""), false)] // 224
-#[case(Anagram::new("nRteehit"), true)] // 225
+#[case(CanSpell::new(""), false)] // 222
+#[case(CanSpell::new("eihbtrtAecdn"), true)] // 223
+#[case(AnagramOf::new(""), false)] // 224
+#[case(AnagramOf::new("nRteehit"), true)] // 225
 #[case(Backwards(""), false)] // 226
 #[case(Backwards("neetRiht"), true)] // 227
-#[case(AtomicNumberOf(""), false)] // 228
-#[case(AtomicNumberOf("Aluminum"), true)] // 229
-#[case(Divisor(1.0), false)] // 230
-#[case(Divisor(13.0), true)] // 231
+#[case(AtomicNumber(""), false)] // 228
+#[case(AtomicNumber("Aluminum"), true)] // 229
+#[case(DivisibleBy(1.0), false)] // 230
+#[case(DivisibleBy(13.0), true)] // 231
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,
 {
-    assert_eq!(input.is_thirteen(), expected);
+    assert_eq!(input.thirteen(), expected);
 }
 
 #[rstest]

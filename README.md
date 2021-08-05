@@ -14,22 +14,22 @@ The syntax of this library is quite different from that of the original library.
 
 | Original version | Rust version |
 |-|-|
-| `is(x).thirteen()` | `x.is_thirteen()` |
-| `is(x).roughly.thirteen()` | `Roughly(x).is_thirteen()` |
-| `is(() => x).returning.thirteen()` | `ReturnedValue(\|\| x).is_thirteen()` |
-| `is(x).not.thirteen()` | `(!x).is_thirteen() // How lazy do you have to be if you need a library to negate a variable?` |
-| `is(x).divisible.thirteen()` | `Divisor(x).is_thirteen()` |
-| `is(x).square.thirteen()` | `(x * x).is_thirteen()` |
+| `is(x).thirteen()` | `x.thirteen()` |
+| `is(x).roughly.thirteen()` | `Roughly(x).thirteen()` |
+| `is(() => x).returning.thirteen()` | `Returns(\|\| x).thirteen()` |
+| `is(x).not.thirteen()` | `(!x).thirteen() // How lazy do you have to be if you need a library to negate a variable?` |
+| `is(x).divisible.thirteen()` | `DivisibleBy(x).thirteen()` |
+| `is(x).square.thirteen()` | `(x * x).thirteen()` |
 | `is(x).greater.thirteen()` | `` |
 | `is(x).less.thirteen()` | `` |
-| `is(x).within(1).thirteen()` | `Within::new(x, 1.0).is_thirteen()` |
+| `is(x).within(1).thirteen()` | `Within::new(x, 1.0).thirteen()` |
 | `is(x).yearOfBirth().thirteen()` | `` |
-| `is(x).plus(2).thirteen()` | `(x + 2).is_thirteen()` |
-| `is(x).minus(2).thirteen()` | `(x - 2).is_thirteen()` |
-| `is(x).times(2).thirteen()` | `(x * 2).is_thirteen()` |
-| `is(x).dividedby(2).thirteen()` | `(x / 2).is_thirteen()` |
-| `is(x).canSpell.thirteen()` | `ContainsLetters(x).is_thirteen()` |
-| `is(x).anagramOf.thirteen()` | `Anagram(x).is_thirteen()` |
-| `is(x).backwards.thirteen()` | `Backwards(x).is_thirteen()` |
-| `is(x).atomicNumber.thirteen()` | `AtomicNumber(x).is_thirteen()` |
+| `is(x).plus(2).thirteen()` | `(x + 2).thirteen()` |
+| `is(x).minus(2).thirteen()` | `(x - 2).thirteen()` |
+| `is(x).times(2).thirteen()` | `(x * 2).thirteen()` |
+| `is(x).dividedby(2).thirteen()` | `(x / 2).thirteen()` |
+| `is(x).canSpell.thirteen()` | `CanSpell(x).thirteen()` |
+| `is(x).anagramOf.thirteen()` | `AnagramOf(x).thirteen()` |
+| `is(x).backwards.thirteen()` | `Backwards(x).thirteen()` |
+| `is(x).atomicNumber.thirteen()` | `AtomicNumber(x).thirteen()` |
 | `is(x).base.thirteen()` | `` |
