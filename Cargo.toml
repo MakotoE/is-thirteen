@@ -1,8 +1,8 @@
 [package]
 name = "is-thirteen"
-version = "0.1.0"
+version = "0.0.13"
 edition = "2018"
-description = "reserved"
+description = "Comparing variables to thirteen has never been easier with this crate."
 license = "MIT"
 
 [dependencies]

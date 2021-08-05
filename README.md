@@ -2,7 +2,7 @@
 
 &emsp;— Literally no one
 
-This very useful crate is an i18n-complete* production-ready* solution for all of your 13-comparison needs.
+This very useful crate is a production-ready* solution for all of your 13-comparison needs.
 
 \* I like asterisks.
 
