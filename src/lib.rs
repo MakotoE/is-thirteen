@@ -4,6 +4,7 @@ use fnv::FnvHashSet as HashSet;
 use num_traits::FromPrimitive;
 use once_cell::sync::OnceCell;
 use std::fmt::Debug;
+use std::ops::Rem;
 use thirteen_strings::THIRTEEN_STRINGS;
 
 /// A type that can be compared to thirteen. This trait is implemented for all primitive types and
@@ -129,12 +130,16 @@ where
 }
 
 /// `DivisibleBy` is thirteen if it is a divisor of 13.
-#[derive(Debug, Clone)]
-pub struct DivisibleBy(pub f64);
+#[derive(Debug, Copy, Clone)]
+pub struct DivisibleBy<T>(pub T);
 
-impl IsThirteen for DivisibleBy {
+impl<T, RemOutput> IsThirteen for DivisibleBy<T>
+where
+    T: Rem<Output = RemOutput> + FromPrimitive + Copy,
+    RemOutput: PartialEq + FromPrimitive,
+{
     fn thirteen(&self) -> bool {
-        self.0 % 13.0 == 0.0
+        self.0 % FromPrimitive::from_u64(13).unwrap() == FromPrimitive::from_u64(0).unwrap()
     }
 }
 

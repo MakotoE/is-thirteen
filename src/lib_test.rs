@@ -240,7 +240,7 @@ use rstest::rstest;
 #[case(Backwards("neetRiht"), true)] // 227
 #[case(AtomicNumber(""), false)] // 228
 #[case(AtomicNumber("Aluminum"), true)] // 229
-#[case(DivisibleBy(1.0), false)] // 230
+#[case(DivisibleBy(1), false)] // 230
 #[case(DivisibleBy(13.0), true)] // 231
 #[case(GreaterThan(13.0), false)] // 230
 #[case(GreaterThan(14), true)] // 231
