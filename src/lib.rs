@@ -1,6 +1,7 @@
 pub mod thirteen_strings;
 
 use fnv::FnvHashSet as HashSet;
+use num_traits::FromPrimitive;
 use once_cell::sync::OnceCell;
 use std::fmt::Debug;
 use thirteen_strings::THIRTEEN_STRINGS;
@@ -113,7 +114,7 @@ impl IsThirteen for Roughly {
     }
 }
 
-/// `ReturnedValue` calls closure to get the value to compare to thirteen.
+/// `Returns` calls closure to get the value to compare to thirteen.
 #[derive(Debug, Clone)]
 pub struct Returns<T>(pub T);
 
@@ -134,6 +135,19 @@ pub struct DivisibleBy(pub f64);
 impl IsThirteen for DivisibleBy {
     fn thirteen(&self) -> bool {
         self.0 % 13.0 == 0.0
+    }
+}
+
+/// `GreaterThan` returns `true` if it is greater than 13.
+#[derive(Debug, Copy, Clone)]
+pub struct GreaterThan<T>(pub T);
+
+impl<T> IsThirteen for GreaterThan<T>
+where
+    T: PartialOrd + FromPrimitive,
+{
+    fn thirteen(&self) -> bool {
+        self.0 > FromPrimitive::from_u64(13).unwrap()
     }
 }
 

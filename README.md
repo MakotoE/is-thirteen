@@ -17,13 +17,13 @@ The syntax of this library is quite different from that of the original library.
 | `is(x).thirteen()` | `x.thirteen()` |
 | `is(x).roughly.thirteen()` | `Roughly(x).thirteen()` |
 | `is(() => x).returning.thirteen()` | `Returns(\|\| x).thirteen()` |
-| `is(x).not.thirteen()` | `(!x).thirteen() // How lazy do you have to be if you need a library to negate a variable?` |
-| `is(x).divisible.thirteen()` | `DivisibleBy(x).thirteen()` |
-| `is(x).square.thirteen()` | `(x * x).thirteen()` |
-| `is(x).greater.thirteen()` | `` |
-| `is(x).less.thirteen()` | `` |
-| `is(x).within(1).thirteen()` | `Within::new(x, 1.0).thirteen()` |
-| `is(x).yearOfBirth().thirteen()` | `` |
+| `is(x).not.thirteen()` | `!x.thirteen() // How lazy do you have to be if you need a library to negate a boolean?` |
+| `is(x).divisible.by.thirteen()` | `DivisibleBy(x).thirteen()` |
+| `is(x).square.of.thirteen()` | `(x * x).thirteen()` |
+| `is(x).greater.than.thirteen()` | `` |
+| `is(x).less.than.thirteen()` | `` |
+| `is(x).within(1).of.thirteen()` | `Within::new(x, 1.0).thirteen()` |
+| `is(x).yearOfBirth()` | `` |
 | `is(x).plus(2).thirteen()` | `(x + 2).thirteen()` |
 | `is(x).minus(2).thirteen()` | `(x - 2).thirteen()` |
 | `is(x).times(2).thirteen()` | `(x * 2).thirteen()` |
@@ -32,4 +32,4 @@ The syntax of this library is quite different from that of the original library.
 | `is(x).anagramOf.thirteen()` | `AnagramOf(x).thirteen()` |
 | `is(x).backwards.thirteen()` | `Backwards(x).thirteen()` |
 | `is(x).atomicNumber.thirteen()` | `AtomicNumber(x).thirteen()` |
-| `is(x).base.thirteen()` | `` |
+| `is(x).base(x).thirteen()` | `` |
