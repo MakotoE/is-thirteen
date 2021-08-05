@@ -14,3 +14,6 @@ num-traits = "0.2"
 [dev-dependencies]
 rstest = "0.10"
 chrono = "0.4"
+
+[[bin]]
+name = "is-thirteen"
