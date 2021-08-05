@@ -222,16 +222,16 @@ use rstest::rstest;
 #[case("13".to_string(), true)] // 209
 #[case(true, false)] // 210
 #[case('1', false)] // 211
-#[case((), false)] // 212
-#[case("1111111111111", true)] // 213
-#[case(Roughly::from(0), false)] // 214
-#[case(Roughly(12.5), true)] // 215
-#[case(Roughly::from(13), true)] // 216
-#[case(Roughly(13.4), true)] // 217
-#[case(Roughly(13.5), false)] // 218
-#[case(Roughly::from_str("12.5").unwrap(), true)] // 219
-#[case(Within::new(0, 1.0), false)] // 220
-#[case(Within::new(12, 1.0), true)] // 221
+#[case('B', true)] // 212
+#[case((), false)] // 213
+#[case("1111111111111", true)] // 214
+#[case(Roughly(0.0), false)] // 215
+#[case(Roughly(12.5), true)] // 216
+#[case(Roughly(13.0), true)] // 217
+#[case(Roughly(13.4), true)] // 218
+#[case(Roughly(13.5), false)] // 219
+#[case(Within::new(0.0, 1.0), false)] // 220
+#[case(Within::new(12.0, 1.0), true)] // 221
 #[case(ContainsLetters::new(""), false)] // 222
 #[case(ContainsLetters::new("eihbtrtAecdn"), true)] // 223
 #[case(Anagram::new(""), false)] // 224
@@ -240,7 +240,6 @@ use rstest::rstest;
 #[case(Backwards("neetRiht"), true)] // 227
 #[case(AtomicNumberOf(""), false)] // 228
 #[case(AtomicNumberOf("Aluminum"), true)] // 229
-#[case('B', true)] // 230
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,

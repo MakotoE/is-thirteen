@@ -3,7 +3,6 @@ pub mod thirteen_strings;
 use fnv::FnvHashSet as HashSet;
 use once_cell::sync::OnceCell;
 use std::fmt::Debug;
-use std::num::ParseFloatError;
 use std::str::FromStr;
 use thirteen_strings::THIRTEEN_STRINGS;
 
@@ -111,23 +110,6 @@ impl_always_false!(());
 #[derive(Debug, Copy, Clone)]
 pub struct Roughly(pub f64);
 
-impl<T> From<T> for Roughly
-where
-    T: Into<f64>,
-{
-    fn from(v: T) -> Self {
-        Self(v.into())
-    }
-}
-
-impl FromStr for Roughly {
-    type Err = ParseFloatError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Ok(Self(s.parse()?))
-    }
-}
-
 impl IsThirteen for Roughly {
     fn is_thirteen(&self) -> bool {
         (12.5..13.5).contains(&self.0)
@@ -157,21 +139,8 @@ pub struct Within {
 
 impl Within {
     /// `radius` is how far `value` can be from 13 to equal 13. That makes sense, right?
-    pub fn new<T>(value: T, radius: f64) -> Self
-    where
-        T: Into<f64>,
-    {
-        Self {
-            value: value.into(),
-            radius,
-        }
-    }
-
-    pub fn from_str(s: &str, radius: f64) -> Result<Self, ParseFloatError> {
-        Ok(Self {
-            value: s.parse()?,
-            radius,
-        })
+    pub fn new(value: f64, radius: f64) -> Self {
+        Self { value, radius }
     }
 }
 
