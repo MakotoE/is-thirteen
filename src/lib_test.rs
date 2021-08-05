@@ -242,8 +242,10 @@ use rstest::rstest;
 #[case(AtomicNumber("Aluminum"), true)] // 229
 #[case(DivisibleBy(1), false)] // 230
 #[case(DivisibleBy(13.0), true)] // 231
-#[case(GreaterThan(13.0), false)] // 230
-#[case(GreaterThan(14), true)] // 231
+#[case(GreaterThan(13.0), false)] // 232
+#[case(GreaterThan(14), true)] // 233
+#[case(LessThan(13), false)] // 234
+#[case(LessThan(12.0), true)] // 235
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,

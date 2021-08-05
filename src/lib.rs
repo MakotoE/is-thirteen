@@ -156,6 +156,19 @@ where
     }
 }
 
+/// `LessThan` returns `true` if it is greater than 13.
+#[derive(Debug, Copy, Clone)]
+pub struct LessThan<T>(pub T);
+
+impl<T> IsThirteen for LessThan<T>
+where
+    T: PartialOrd + FromPrimitive,
+{
+    fn thirteen(&self) -> bool {
+        self.0 < FromPrimitive::from_u64(13).unwrap()
+    }
+}
+
 /// `Within` has a custom tolerance for equalling thirteen.
 #[derive(Debug, Copy, Clone)]
 pub struct Within {
