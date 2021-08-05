@@ -36,7 +36,7 @@ use rstest::rstest;
 #[case("https://en.wikipedia.org/wiki/XIII_(video_game)", true)] // 24
 #[case("http://www.imdb.com/title/tt0798817/", true)] // 25
 #[case("https://www.imdb.com/title/tt2991516/", true)] // 26
-#[case(Utc::today().year() - Utc.ymd(2003, 1, 1).year(), false)] // 27
+#[case(Utc.ymd(2021, 1, 1).year() - Utc.ymd(2003, 1, 1).year(), false)] // 27
 #[case("13+0i", true)] // 28
 #[case("13i", true)] // 29
 #[case("13 + 13i", true)] // 30

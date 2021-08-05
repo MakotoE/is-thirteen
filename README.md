@@ -1,3 +1,5 @@
+[![Latest version](https://img.shields.io/crates/v/is-thirteen.svg)](https://crates.io/crates/is-thirteen) [![Documentation](https://docs.rs/is-thirteen/badge.svg)](https://docs.rs/is-thirteen/)
+
 "Sometimes it is difficult to figure out if a variable equals 13 or not. That is why we need `npm install is-thirteen`."
 
 &emsp;— Literally no one
@@ -20,10 +22,10 @@ The syntax of this library is quite different from that of the original library.
 | `is(x).not.thirteen()` | `!x.thirteen() // How lazy do you have to be if you need a library to negate a boolean?` |
 | `is(x).divisible.by.thirteen()` | `DivisibleBy(x).thirteen()` |
 | `is(x).square.of.thirteen()` | `(x * x).thirteen()` |
-| `is(x).greater.than.thirteen()` | `` |
-| `is(x).less.than.thirteen()` | `` |
+| `is(x).greater.than.thirteen()` | `GreaterThan(x).thirteen()` |
+| `is(x).less.than.thirteen()` | `LessThan(x).thirteen()` |
 | `is(x).within(1).of.thirteen()` | `Within::new(x, 1.0).thirteen()` |
-| `is(x).yearOfBirth()` | `` |
+| `is(x).yearOfBirth()` | `(chrono::Utc::today().year() - x).thirteen()` |
 | `is(x).plus(2).thirteen()` | `(x + 2).thirteen()` |
 | `is(x).minus(2).thirteen()` | `(x - 2).thirteen()` |
 | `is(x).times(2).thirteen()` | `(x * 2).thirteen()` |
@@ -32,4 +34,4 @@ The syntax of this library is quite different from that of the original library.
 | `is(x).anagramOf.thirteen()` | `AnagramOf(x).thirteen()` |
 | `is(x).backwards.thirteen()` | `Backwards(x).thirteen()` |
 | `is(x).atomicNumber.thirteen()` | `AtomicNumber(x).thirteen()` |
-| `is(x).base(x).thirteen()` | `` |
+| `is(x).base(16).thirteen()` | `i64::from_str_radix(x, 16).thirteen()` |
