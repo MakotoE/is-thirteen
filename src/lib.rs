@@ -3,10 +3,7 @@ pub mod thirteen_strings;
 use fnv::FnvHashSet as HashSet;
 use once_cell::sync::OnceCell;
 use std::fmt::Debug;
-use std::str::FromStr;
 use thirteen_strings::THIRTEEN_STRINGS;
-
-const THIRTEEN_STR: &str = "thirteen";
 
 /// A type that can be compared to thirteen. This trait is implemented for all primitive types and
 /// `&str`.
@@ -176,24 +173,23 @@ impl IsThirteen for ContainsLetters {
 /// "thirteen."
 #[derive(Debug, Clone)]
 pub struct Anagram {
-    // It could be stored as a sorted Vec for smaller size but hash set has better insertion time
-    // complexity (O(1) vs O(log(n)).
-    letters: HashSet<u8>,
+    bytes: HashSet<u8>,
 }
 
 impl Anagram {
     pub fn new(s: &str) -> Self {
         Self {
-            letters: s.bytes().map(|b| b.to_ascii_lowercase()).collect(),
+            bytes: s.bytes().map(|b| b.to_ascii_lowercase()).collect(),
         }
     }
 }
 
+const THIRTEEN_STR: &str = "thirteen";
 static THIRTEEN_LETTERS: OnceCell<HashSet<u8>> = OnceCell::new();
 
 impl IsThirteen for Anagram {
     fn is_thirteen(&self) -> bool {
-        self.letters == *THIRTEEN_LETTERS.get_or_init(|| THIRTEEN_STR.bytes().collect())
+        self.bytes == *THIRTEEN_LETTERS.get_or_init(|| THIRTEEN_STR.bytes().collect())
     }
 }
 
