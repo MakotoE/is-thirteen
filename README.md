@@ -12,14 +12,14 @@ This is a port of [is-thirteen](https://github.com/jezen/is-thirteen) and is tes
 
 # Syntax map
 
-The syntax of this library is quite different from that of the original library. This table shows how your messy JS code can be cleaned with the Rust version.
+The syntax of this library is quite different from that of the original library. This table shows how your messy JS code can be cleaned up with the Rust version.
 
 | Original version | Rust version |
 |-|-|
 | `is(x).thirteen()` | `x.thirteen()` |
 | `is(x).roughly.thirteen()` | `Roughly(x).thirteen()` |
 | `is(() => x).returning.thirteen()` | `Returns(\|\| x).thirteen()` |
-| `is(x).not.thirteen()` | `!x.thirteen() // How lazy do you have to be if you need a library to negate a boolean?` |
+| `is(x).not.thirteen()` | `!x.thirteen() // How lazy do you have to be if you need a library to negate a Boolean?` |
 | `is(x).divisible.by.thirteen()` | `DivisibleBy(x).thirteen()` |
 | `is(x).square.of.thirteen()` | `(x * x).thirteen()` |
 | `is(x).greater.than.thirteen()` | `GreaterThan(x).thirteen()` |

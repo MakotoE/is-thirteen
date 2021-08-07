@@ -118,7 +118,7 @@ impl IsThirteen for Roughly {
     }
 }
 
-/// `Returns` calls closure to get the value to compare to thirteen.
+/// `Returns` calls its closure and compares the returned value to thirteen.
 #[derive(Debug, Clone)]
 pub struct Returns<T>(pub T);
 
@@ -248,7 +248,7 @@ impl IsThirteen for Backwards<'_> {
     }
 }
 
-/// `AtomicNumber` is thirteen if it contains the string `"aluminum"`.
+/// `AtomicNumber` is thirteen if the string equals `"aluminum"`.
 #[derive(Debug, Clone)]
 pub struct AtomicNumber<'s>(pub &'s str);
 
