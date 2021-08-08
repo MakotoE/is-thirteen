@@ -2,8 +2,11 @@
 name = "is-thirteen"
 version = "0.0.13"
 edition = "2018"
-description = "Comparing variables to thirteen has never been easier with this crate."
+description = "Did you consider the fact that \"Jodie Whittaker\" represents the number 13 in some cultures? No you didn't. That's why you need this crate."
 license = "MIT"
+documentation = "https://docs.rs/is-thirteen/"
+repository = "https://github.com/MakotoE/is-thirteen"
+readme = "README.md"
 
 [dependencies]
 phf = { version = "0.9", features = ["macros"] }
