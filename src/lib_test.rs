@@ -246,6 +246,7 @@ use rstest::rstest;
 #[case(GreaterThan(14), true)] // 233
 #[case(LessThan(13), false)] // 234
 #[case(LessThan(12.0), true)] // 235
+#[case(Backwards("neetRihT"), true)] // 236
 fn is_thirteen<T>(#[case] input: T, #[case] expected: bool)
 where
     T: IsThirteen,

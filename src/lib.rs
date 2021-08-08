@@ -238,7 +238,8 @@ impl IsThirteen for AnagramOf {
     }
 }
 
-/// `Backwards` is thirteen if its lowercase version equals `"neetriht"` (reverse spelling of "thirteen").
+/// `Backwards` is thirteen if its lowercase version equals `"neetriht"` (reverse spelling of
+/// "thirteen"). This is different from the original JS version as the original is case-sensitive.
 #[derive(Debug, Clone)]
 pub struct Backwards<'s>(pub &'s str);
 
