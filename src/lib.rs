@@ -244,7 +244,7 @@ pub struct Backwards<'s>(pub &'s str);
 
 impl IsThirteen for Backwards<'_> {
     fn thirteen(&self) -> bool {
-        self.0.to_lowercase().as_str() == "neetriht"
+        self.0.eq_ignore_ascii_case("neetriht")
     }
 }
 
