@@ -238,13 +238,13 @@ impl IsThirteen for AnagramOf {
     }
 }
 
-/// `Backwards` is thirteen if it equals `"neetRiht"` (reverse spelling of "thirteen").
+/// `Backwards` is thirteen if its lowercase version equals `"neetriht"` (reverse spelling of "thirteen").
 #[derive(Debug, Clone)]
 pub struct Backwards<'s>(pub &'s str);
 
 impl IsThirteen for Backwards<'_> {
     fn thirteen(&self) -> bool {
-        self.0 == "neetRiht"
+        self.0.eq_ignore_ascii_case("neetriht")
     }
 }
 
