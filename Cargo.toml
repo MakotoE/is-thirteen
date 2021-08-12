@@ -1,6 +1,6 @@
 [package]
 name = "is-thirteen"
-version = "0.0.13"
+version = "0.13.0"
 edition = "2018"
 description = "Did you consider the fact that \"Jodie Whittaker\" represents the number 13 in some cultures? No you didn't. That's why you need this crate."
 license = "WTFPL"
